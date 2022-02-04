@@ -24,7 +24,7 @@ provider "aws" {
 }
 
 resource "random_pet" "lambda_bucket_name" {
-  prefix = "terraformpocvk"
+  prefix = "terraformpocvkk"
   length = 4
 }
 
@@ -34,31 +34,31 @@ resource "aws_s3_bucket" "lambda_bucket" {
   acl           = "private"
   force_destroy = true
 }
-data "archive_file" "lambda_demo" {
+data "archive_file" "lamda_demo" {
   type = "zip"
 
   source_dir  = "${path.module}/lamda-funct"
   output_path = "${path.module}/lamda-funct.zip"
 }
 
-resource "aws_s3_bucket_object" "lambda_demo" {
+resource "aws_s3_bucket_object" "lamda_demo" {
   bucket = aws_s3_bucket.lambda_bucket.id
 
-  key    = "lamda-demo.zip"
-  source = data.archive_file.lambda_demo.output_path
+  key    = "lamda_demo.zip"
+  source = data.archive_file.lamda_demo.output_path
 
-  etag = filemd5(data.archive_file.lambda_demo.output_path)
+  etag = filemd5(data.archive_file.lamda_demo.output_path)
 }
 resource "aws_lambda_function" "lamda_demo" {
-  function_name = "terraformpocvk"
+  function_name = "terraformpocvkk"
 
   s3_bucket = aws_s3_bucket.lambda_bucket.id
-  s3_key    = aws_s3_bucket_object.lambda_demo.key
+  s3_key    = aws_s3_bucket_object.lamda_demo.key
 
   runtime = "nodejs12.x"
   handler = "hello.handler"
 
-  source_code_hash = data.archive_file.lambda_demo.output_base64sha256
+  source_code_hash = data.archive_file.lamda_demo.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
 }
@@ -70,7 +70,7 @@ resource "aws_cloudwatch_log_group" "lamda_demo" {
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "terraformpocvk"
+  name = "terraformpocvkk"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
