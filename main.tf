@@ -19,8 +19,8 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
-  access_key="AKIA5T4QMEF5JL5TCCUH"
-  secret_key="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"
+  access_key="AKIA5T4QMEF5NZM657XF"
+  secret_key="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"
 }
 
 resource "random_pet" "lambda_bucket_name" {
