@@ -44,7 +44,7 @@ data "archive_file" "lambda_demo" {
 resource "aws_s3_bucket_object" "lambda_demo" {
   bucket = aws_s3_bucket.lambda_bucket.id
 
-  key    = "hello-world.zip"
+  key    = "lamda-demo.zip"
   source = data.archive_file.lambda_demo.output_path
 
   etag = filemd5(data.archive_file.lambda_demo.output_path)
@@ -58,7 +58,7 @@ resource "aws_lambda_function" "lamda_demo" {
   runtime = "nodejs12.x"
   handler = "hello.handler"
 
-  source_code_hash = data.archive_file.lambda_de.output_base64sha256
+  source_code_hash = data.archive_file.lambda_demo.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
 }
