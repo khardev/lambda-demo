@@ -32,4 +32,8 @@ jobs:
         version: 12.x
     - name: Zip Folder
       run: zip -r lamda-functt.zip lamda-funct
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
      
