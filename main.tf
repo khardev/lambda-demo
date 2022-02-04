@@ -17,11 +17,37 @@ terraform {
   required_version = "~> 1.0"
 }
 
-
 provider "aws" {
   region = var.aws_region
-  access_key="AKIA5T4QMEF5DDHZQCGS"
-  secret_key="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"
+  access_key="AKIA5T4QMEF5JL5TCCUH"
+  secret_key="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"
+}
+
+resource "random_pet" "lambda_bucket_name" {
+  prefix = "terraformpocvk"
+  length = 4
+}
+
+resource "aws_s3_bucket" "lambda_bucket" {
+  bucket = random_pet.lambda_bucket_name.id
+
+  acl           = "private"
+  force_destroy = true
+}
+data "archive_file" "lambda_hello_world" {
+  type = "zip"
+
+  source_dir  = "${path.module}/lamda-funct"
+  output_path = "${path.module}/lamda-funct.zip"
+}
+
+resource "aws_s3_bucket_object" "lambda_hello_world" {
+  bucket = aws_s3_bucket.lambda_bucket.id
+
+  key    = "hello-world.zip"
+  source = data.archive_file.lambda_hello_world.output_path
+
+  etag = filemd5(data.archive_file.lambda_hello_world.output_path)
 }
 resource "aws_lambda_function" "hello_world" {
   function_name = "terraformpocvk"
@@ -44,7 +70,7 @@ resource "aws_cloudwatch_log_group" "hello_world" {
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "serverless_lambda"
+  name = "terraformpocvk"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
