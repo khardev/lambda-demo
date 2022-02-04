@@ -31,5 +31,5 @@ jobs:
       with:
         version: 12.x
     - name: Zip Folder
-      run: zip -r lamda-demo.zip ./lamda-demo
+      run: zip -r lamda-functt.zip lamda-funct
      
