@@ -1,0 +1,97 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@khardev 
+actions
+/
+upload-artifact
+Public
+Code
+Issues
+79
+Pull requests
+5
+Actions
+Projects
+Wiki
+Security
+Insights
+upload-artifact/package.json
+@konradpabjan
+konradpabjan Bump @actions/artifact to version 0.6.1 (#286)
+Latest commit 82c141c on Dec 15, 2021
+ History
+ 6 contributors
+@konradpabjan@yacaovsnc@thboop@joshmgross@gimenete@brcrista
+ 53 lines (53 sloc)  1.47 KB
+   
+{
+  "name": "upload-artifact",
+  "version": "2.0.1",
+  "description": "Upload a build artifact that can be used by subsequent workflow steps",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "release": "ncc build src/upload-artifact.ts && git add -f dist/",
+    "check-all": "concurrently \"npm:format-check\" \"npm:lint\" \"npm:test\" \"npm:build\"",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint **/*.ts",
+    "test": "jest --testTimeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/upload-artifact.git"
+  },
+  "keywords": [
+    "Actions",
+    "GitHub",
+    "Artifacts",
+    "Upload"
+  ],
+  "author": "GitHub",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/actions/upload-artifact/issues"
+  },
+  "homepage": "https://github.com/actions/upload-artifact#readme",
+  "dependencies": {
+    "@actions/artifact": "^0.6.1",
+    "@actions/core": "^1.2.6",
+    "@actions/glob": "^0.1.0",
+    "@actions/io": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.11.1",
+    "@typescript-eslint/parser": "^2.27.0",
+    "@zeit/ncc": "^0.22.1",
+    "concurrently": "^5.1.0",
+    "eslint": "^7.4.0",
+    "eslint-plugin-github": "^4.1.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "glob": "^7.1.6",
+    "jest": "^27.2.5",
+    "jest-circus": "^27.2.5",
+    "prettier": "^2.0.4",
+    "ts-jest": "^27.0.6",
+    "typescript": "^3.8.3"
+  }
+}
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
