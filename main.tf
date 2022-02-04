@@ -34,37 +34,37 @@ resource "aws_s3_bucket" "lambda_bucket" {
   acl           = "private"
   force_destroy = true
 }
-data "archive_file" "lambda_hello_world" {
+data "archive_file" "lambda_demo" {
   type = "zip"
 
   source_dir  = "${path.module}/lamda-funct"
   output_path = "${path.module}/lamda-funct.zip"
 }
 
-resource "aws_s3_bucket_object" "lambda_hello_world" {
+resource "aws_s3_bucket_object" "lambda_demo" {
   bucket = aws_s3_bucket.lambda_bucket.id
 
   key    = "hello-world.zip"
-  source = data.archive_file.lambda_hello_world.output_path
+  source = data.archive_file.lambda_demo.output_path
 
-  etag = filemd5(data.archive_file.lambda_hello_world.output_path)
+  etag = filemd5(data.archive_file.lambda_demo.output_path)
 }
-resource "aws_lambda_function" "hello_world" {
+resource "aws_lambda_function" "lamda_demo" {
   function_name = "terraformpocvk"
 
   s3_bucket = aws_s3_bucket.lambda_bucket.id
-  s3_key    = aws_s3_bucket_object.lambda_hello_world.key
+  s3_key    = aws_s3_bucket_object.lambda_demo.key
 
   runtime = "nodejs12.x"
   handler = "hello.handler"
 
-  source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
+  source_code_hash = data.archive_file.lambda_de.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
 }
 
-resource "aws_cloudwatch_log_group" "hello_world" {
-  name = "/aws/lambda/${aws_lambda_function.hello_world.function_name}"
+resource "aws_cloudwatch_log_group" "lamda_demo" {
+  name = "/aws/lambda/${aws_lambda_function.lamda_demo.function_name}"
 
   retention_in_days = 30
 }
