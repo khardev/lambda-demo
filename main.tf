@@ -23,14 +23,16 @@ provider "aws" {
   access_key="AKIA5T4QMEF5DDHZQCGS"
   secret_key="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"
 }
-
-
 resource "aws_lambda_function" "hello_world" {
-  function_name = "terraformlamdapoc"
+  function_name = "terraformpocvk"
 
+  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_key    = aws_s3_bucket_object.lambda_hello_world.key
 
   runtime = "nodejs12.x"
   handler = "hello.handler"
+
+  source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
 }
