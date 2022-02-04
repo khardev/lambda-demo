@@ -70,19 +70,22 @@ resource "aws_cloudwatch_log_group" "lamda_demo" {
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "terraformpocvkk"
+  name = "serverless_lambda"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Sid    = ""
-      Principal = {
-        Service = "lambda.amazonaws.com"
-      }
-      }
-    ]
+   "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "lamda.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
   })
 }
 
