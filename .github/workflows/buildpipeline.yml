@@ -30,6 +30,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         version: 12.x
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+    # terraform_version: 0.13.0
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
     - name: Zip Folder
       run: zip -r lamda-functt.zip lamda-funct
     - name: Terraform Init
