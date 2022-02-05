@@ -73,20 +73,21 @@ resource "aws_iam_role" "lambda_exec" {
   name = "serverless_lambda"
 
   assume_role_policy = jsonencode({
-   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "lamda.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-  })
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Principal": {
+                "Service": [
+                    "lambda.amazonaws.com"
+                ]
+            }
+        }
+    ]
+})
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
