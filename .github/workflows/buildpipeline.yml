@@ -40,7 +40,7 @@ jobs:
       run: zip -r lamda-functt.zip lamda-funct
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: terraform init -backend-config="access_key=AKIA5T4QMEF5NZM657XF" -backend-config="secret_key=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"
       
     - name: Terraform Validate
       id: validate
