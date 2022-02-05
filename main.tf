@@ -3,6 +3,7 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.48.0"
+      
     }
     random = {
       source  = "hashicorp/random"
@@ -13,7 +14,11 @@ terraform {
       version = "~> 2.2.0"
     }
   }
-
+  backend "s3" {
+    bucket = "terraformpocbackend"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
   required_version = "~> 1.0"
 }
 
